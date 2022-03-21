@@ -1,10 +1,11 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 
 void main() {
   runApp(MaterialApp(
     home: MyApp(),
+    theme: ThemeData(
+      primarySwatch: Colors.purple,
+    ),
   ));
 }
 
@@ -17,39 +18,38 @@ class MyApp extends StatelessWidget {
       appBar: AppBar(
         title: Text("My App"),
       ),
-      body: Center(
-        child: Container(
-          padding:const EdgeInsets.all(8),
-          height: 100,
-          width: 100,
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-             color: Colors.amber,
-             gradient: LinearGradient(
-               colors: [
-                 Colors.yellow,
-                 Colors.pink
-               ]),
-
-               borderRadius: BorderRadius.circular(10),
-               boxShadow: [
-                 BoxShadow(
-                   color: Colors.grey.shade400,
-                   blurRadius: 5,
-                   offset: Offset(2.0, 5.0)
-                 )
-               ]
-          ),
-            child: Text("Hello from My App",
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Colors.black,
-             fontSize: 20,
-             fontWeight: FontWeight.bold
-            ),)
+      body: Container(),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: Icon(Icons.edit),
+      ),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            UserAccountsDrawerHeader(
+              accountName: Text("Albus"),
+              accountEmail: Text("contact.albus@gmail.com"),
+              currentAccountPicture: CircleAvatar(
+               backgroundImage: AssetImage("assets/images/self.jpg"),
+                ),
+              decoration: BoxDecoration(color: Colors.purpleAccent),
+            ),
+            ListTile(
+              leading: Icon(Icons.person),
+              title: Text("Account"),
+              subtitle: Text("Personal"),
+              trailing: Icon(Icons.edit),
+            ),
+            ListTile(
+              leading: Icon(Icons.email),
+              title: Text("Email"),
+              subtitle: Text("contact.albus@gmail.com"),
+              trailing: Icon(Icons.send),
+            ),
+          ],
         ),
       ),
     );
   }
 }
-
