@@ -4,14 +4,14 @@ import '../drawer.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
+class HomePageFB extends StatefulWidget {
+  const HomePageFB({Key? key}) : super(key: key);
 
   @override
-  State<MyApp> createState() => _MyAppState();
+  State<HomePageFB> createState() => _HomePageFBState();
 }
 
-class _MyAppState extends State<MyApp> {
+class _HomePageFBState extends State<HomePageFB> {
   TextEditingController _nameEditingController = TextEditingController();
   var myText = "Change Me";
   var url = Uri.parse("https://jsonplaceholder.typicode.com/photos");
