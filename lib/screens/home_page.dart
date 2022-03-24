@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-
-import '../change_name.dart';
 import '../drawer.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -13,6 +13,22 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   TextEditingController _nameEditingController = TextEditingController();
   var myText = "Change Me";
+  var url = Uri.parse("https://jsonplaceholder.typicode.com/photos");
+  var data;
+
+  @override
+  void initState() {
+    super.initState();
+    getData();
+  }
+
+  void getData() async {
+    var res = await http.get(url);
+    //print(res.body);
+    data = jsonDecode(res.body);
+    print(data);
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,19 +38,24 @@ class _MyAppState extends State<MyApp> {
         title: Text("My App"),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: SingleChildScrollView(
-          child: Card(
-            child: ChangeNameColumn(myText: myText, nameEditingController: _nameEditingController),
-          ),
-        ),
-      ),
+          padding: const EdgeInsets.all(16.0),
+          child: data != null
+              ? ListView.builder(
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      title: Text(data[index]["title"]),
+                      leading: Image.network(data[index]["url"]),
+                      subtitle: Text("ID: ${data[index]["id"]}"),
+                    );
+                  },
+                )
+              : Center(
+                  child: CircularProgressIndicator(),
+                )),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           myText = _nameEditingController.text;
-          setState(() {
-            
-          });
+          setState(() {});
         },
         child: Icon(Icons.refresh),
       ),
